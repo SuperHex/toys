@@ -8,20 +8,21 @@ import Control.Monad
 import qualified Data.Text as T
 import qualified Data.Map  as M
 
-data XML = Node Label [XML]
+data XML = XML Node [XML]
+         | Empty
          deriving (Show, Eq)
 
-data Label = Label
+data Node = Node
            { labelName :: T.Text
            , attribute :: M.Map T.Text T.Text
            , content   :: Maybe T.Text
            } deriving (Show, Eq)
 
-type Key = T.Text
+type Name = T.Text
 type Val = T.Text
-type Attr = (Key, Val)
+type Attr = (Name, Val)
 
-xmlHeader :: Parser Label
+xmlHeader :: Parser Node
 xmlHeader = do
     _ <- string "<?xml"
     attr <- do
@@ -29,7 +30,7 @@ xmlHeader = do
         <|> return []
     spaces
     _ <- string "?>"
-    return $ Label { labelName = "XMLHeader"
+    return $ Node { labelName = "XMLHeader"
                    , attribute = M.fromList attr
                    , content = Nothing
                    }
@@ -40,3 +41,45 @@ xmlAttribute = do
     _ <- many1 $ string " "
     k:v:[] <- (many $ noneOf "<>=? ") `sepBy` (string "=")
     return $ (T.pack k,T.pack v)
+
+-- TODO: support comment parsing
+xmlTagStart :: Parser Node
+xmlTagStart = do
+    _ <- string "<"
+    name <- (many1 (noneOf "<>=? ")) <?> "tag name!"
+    attr <- do
+        try $ many xmlAttribute
+        <|> return []
+    spaces
+    _ <- string ">" <?> "Tag not close!"
+    return $ Node { labelName = T.pack name
+                  , attribute = M.fromList attr
+                  , content   = Nothing
+                  }
+
+xmlContent :: Parser T.Text
+xmlContent = do
+    -- we dont consider escape now, just return what it is.
+    txt <- many $ noneOf "<>"
+    return $ T.pack txt
+
+xmlTagEnd :: Parser T.Text
+xmlTagEnd = do
+    _ <- string "</"
+    name <- (many1 $ noneOf "<>=? ")
+    return $ T.pack name
+
+xmlNode :: Parser Node
+xmlNode = do
+    node <- xmlTagStart
+    txt  <- xmlContent
+    end  <- xmlTagEnd
+    if (labelName node == end)
+        then do
+            case (T.null txt) of
+                True   -> return node
+                False  -> return $ node { content = Just $ txt}
+        else error "Tag doesn't close correct!"
+
+xmlNestNode :: Parser XML
+xmlNestNode = undefined
