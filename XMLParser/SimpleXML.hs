@@ -83,3 +83,8 @@ xmlNode = do
 
 xmlNestNode :: Parser XML
 xmlNestNode = undefined
+
+-- Here is the difficult point: How to parse a nested tag?
+-- which means, we must maintain a stack holds all tag who is not closed.
+-- Seems we have to use a monad transformer here, since the parsing and push/pop
+-- action is in parelell.
