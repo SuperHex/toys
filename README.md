@@ -4,4 +4,7 @@ Includes
 ---
 + *XML Parser*
 
-	a parsing library with XPath-like syntax.
+	A parsing library with XPath-like syntax.
++ *WAV Parser*
+
+	Extract wave format audio.
