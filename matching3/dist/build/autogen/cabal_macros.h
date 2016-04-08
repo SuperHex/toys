@@ -7,6 +7,20 @@
   (major1) == 4 && (major2) <  8 || \
   (major1) == 4 && (major2) == 8 && (minor) <= 2)
 
+/* package comonad-5 */
+#define VERSION_comonad "5"
+#define MIN_VERSION_comonad(major1,major2,minor) (\
+  (major1) <  5 || \
+  (major1) == 5 && (major2) <  0 || \
+  (major1) == 5 && (major2) == 0 && (minor) <= 0)
+
+/* package free-4.12.4 */
+#define VERSION_free "4.12.4"
+#define MIN_VERSION_free(major1,major2,minor) (\
+  (major1) <  4 || \
+  (major1) == 4 && (major2) <  12 || \
+  (major1) == 4 && (major2) == 12 && (minor) <= 4)
+
 /* package matrix-0.3.4.4 */
 #define VERSION_matrix "0.3.4.4"
 #define MIN_VERSION_matrix(major1,major2,minor) (\
@@ -91,5 +105,5 @@
   (major1) == 0 && (major2) <  29 || \
   (major1) == 0 && (major2) == 29 && (minor) <= 0)
 
-#define CURRENT_PACKAGE_KEY "match_4OfXZevo9PxBlwixvr4Dzh"
+#define CURRENT_PACKAGE_KEY "match_3QuwVEzzuio6eaqeNRYgfy"
 

@@ -17,7 +17,7 @@ version = Version [0,1,0,0] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/Users/clinix/.cabal/bin"
-libdir     = "/Users/clinix/.cabal/lib/x86_64-osx-ghc-7.10.3/matching3-0.1.0.0-4OfXZevo9PxBlwixvr4Dzh"
+libdir     = "/Users/clinix/.cabal/lib/x86_64-osx-ghc-7.10.3/matching3-0.1.0.0-3QuwVEzzuio6eaqeNRYgfy"
 datadir    = "/Users/clinix/.cabal/share/x86_64-osx-ghc-7.10.3/matching3-0.1.0.0"
 libexecdir = "/Users/clinix/.cabal/libexec"
 sysconfdir = "/Users/clinix/.cabal/etc"
